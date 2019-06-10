@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nbvarnado.bakingapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <receiver android:name=".RecipeWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_widget_info" />
+        </receiver>
+
+        <service android:name=".RecipeService"/>
+        <service android:name=".WidgetService" android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name=".ui.ingredients.IngredientsActivity"
+            android:label="@string/title_activity_ingredients"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.recipe.StepListActivity"
+            android:label="@string/title_step_list"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.recipe.StepDetailActivity"
+            android:label="@string/title_step_detail"
+            android:parentActivityName=".ui.recipe.StepListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nbvarnado.bakingapp.ui.recipe.StepListActivity" />
+        </activity>
+        <activity android:name=".ui.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

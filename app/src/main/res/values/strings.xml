@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Baking App</string>
+    <string name="error_message">Error loading recipes.</string>
+    <string name="recipe_image_content_description">Recipe Image</string>
+    <string name="serves_label">SERVES:</string>
+    <string name="ingredients_label">INGREDIENTS:</string>
+    <string name="steps_label">STEPS:</string>
+    <string name="recipe_ingredients">Recipe Ingredients</string>
+    <string name="title_step_list">Steps</string>
+    <string name="title_step_detail">Step Detail</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="steps">Steps</string>
+    <string name="title_activity_ingredients">IngredientsActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="previous_step">Previous Step</string>
+    <string name="next_step">Next Step</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="next">Next</string>
+    <string name="recipe_name_content_description">Recipe Name</string>
+</resources>
