@@ -197,8 +197,5 @@ public class StepListActivity extends AppCompatActivity {
             }
         }
 
-        public boolean isTwoPane() {
-            return mTwoPane;
-        }
     }
 }
