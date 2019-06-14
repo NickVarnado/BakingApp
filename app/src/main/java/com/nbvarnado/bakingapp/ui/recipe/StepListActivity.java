@@ -183,6 +183,7 @@ public class StepListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
+            if (mSteps == null) return 0;
             return mSteps.size();
         }
 
