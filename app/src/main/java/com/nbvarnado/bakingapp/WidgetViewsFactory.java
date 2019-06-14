@@ -21,7 +21,7 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
     public WidgetViewsFactory(Context context, Intent intent) {
         this.mContext = context;
         this.mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        this.mIngredients = intent.getParcelableArrayListExtra(RecipeWidgetProvider.EXTRA_INGREDIENTS);
+        this.mIngredients = (ArrayList<Ingredient>) intent.getSerializableExtra(RecipeWidgetProvider.EXTRA_INGREDIENTS);
     }
 
     @Override

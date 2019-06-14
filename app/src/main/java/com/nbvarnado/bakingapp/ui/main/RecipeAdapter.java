@@ -50,7 +50,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         // Picasso will throw an exception if the image url is an empty string.
         if (imageUrl.isEmpty()) {
-            holder.mImageView.setImageResource(R.drawable.recipe_error);
+            Picasso.get()
+                    .load(getImageResource(recipe))
+                    .error(R.drawable.recipe_error)
+                    .into(holder.mImageView);
         } else {
             Picasso.get()
                 .load(imageUrl)
@@ -69,6 +72,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             return 0;
         }
         return mRecipes.size();
+    }
+
+    public int getImageResource(Recipe recipe) {
+        switch (recipe.getName()) {
+            case "Nutella Pie":
+                return R.drawable.nutella_pie;
+            case "Brownies":
+                return R.drawable.brownie;
+            case "Yellow Cake":
+                return R.drawable.yellow_cake;
+            case "Cheesecake":
+                return R.drawable.cheesecake;
+            default:
+                return R.drawable.recipe_error;
+        }
     }
 
     void setRecipeData(List<Recipe> recipeData) {

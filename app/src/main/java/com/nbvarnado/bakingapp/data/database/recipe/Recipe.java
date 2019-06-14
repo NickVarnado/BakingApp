@@ -10,6 +10,7 @@ import androidx.room.TypeConverters;
 
 import com.nbvarnado.bakingapp.data.database.RecipeTypeConverters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "recipe_table")
@@ -42,9 +43,10 @@ public class Recipe implements Parcelable {
     }
 
     protected Recipe(Parcel in) {
+        this.ingredients = new ArrayList<>();
         id = in.readInt();
         name = in.readString();
-        ingredients = in.createTypedArrayList(Ingredient.CREATOR);
+        in.readList(this.ingredients, Ingredient.class.getClassLoader());
         steps = in.createTypedArrayList(Step.CREATOR);
         servings = in.readInt();
         image = in.readString();
@@ -71,7 +73,7 @@ public class Recipe implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeTypedList(ingredients);
+        dest.writeList(ingredients);
         dest.writeTypedList(steps);
         dest.writeInt(servings);
         dest.writeString(image);

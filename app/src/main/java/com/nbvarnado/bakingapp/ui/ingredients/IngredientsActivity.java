@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 import com.nbvarnado.bakingapp.R;
 import com.nbvarnado.bakingapp.data.database.recipe.Recipe;
+import com.nbvarnado.bakingapp.ui.main.MainActivity;
 
 public class IngredientsActivity extends AppCompatActivity {
 
     private static final String TAG = IngredientsActivity.class.getSimpleName();
-    public static final String RECIPE_KEY = "recipe";
 
     private Recipe mRecipe;
 
@@ -30,10 +30,10 @@ public class IngredientsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         if (savedInstanceState != null) {
-            mRecipe = savedInstanceState.getParcelable(RECIPE_KEY);
+            mRecipe = savedInstanceState.getParcelable(MainActivity.EXTRA_RECIPE);
         } else {
             Intent intent = getIntent();
-            mRecipe = intent.getParcelableExtra(RECIPE_KEY);
+            mRecipe = intent.getParcelableExtra(MainActivity.EXTRA_RECIPE);
         }
 
         TextView toolbarTextView = findViewById(R.id.tv_ingredients_toolbar);
@@ -52,13 +52,13 @@ public class IngredientsActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(RECIPE_KEY, mRecipe);
+        outState.putParcelable(MainActivity.EXTRA_RECIPE, mRecipe);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mRecipe = savedInstanceState.getParcelable(RECIPE_KEY);
+        mRecipe = savedInstanceState.getParcelable(MainActivity.EXTRA_RECIPE);
     }
 
 }

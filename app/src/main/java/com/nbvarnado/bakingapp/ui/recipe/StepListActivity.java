@@ -93,7 +93,7 @@ public class StepListActivity extends AppCompatActivity {
             } else {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, IngredientsActivity.class);
-                intent.putExtra(IngredientsActivity.RECIPE_KEY, mRecipe);
+                intent.putExtra(MainActivity.EXTRA_RECIPE, mRecipe);
                 context.startActivity(intent);
             }
         });

@@ -21,8 +21,10 @@
                 android:resource="@xml/recipe_widget_info" />
         </receiver>
 
-        <service android:name=".RecipeService"/>
-        <service android:name=".WidgetService" android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service android:name=".RecipeService" />
+        <service
+            android:name=".WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
             android:name=".ui.ingredients.IngredientsActivity"
@@ -31,11 +33,13 @@
         <activity
             android:name=".ui.recipe.StepListActivity"
             android:label="@string/title_step_list"
+            android:configChanges="orientation|screenSize|layoutDirection"
             android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.recipe.StepDetailActivity"
             android:label="@string/title_step_detail"
+            android:configChanges="orientation|screenSize|layoutDirection"
             android:parentActivityName=".ui.recipe.StepListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

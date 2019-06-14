@@ -13,6 +13,7 @@ import com.nbvarnado.bakingapp.data.database.recipe.Ingredient;
 import com.nbvarnado.bakingapp.data.database.recipe.Recipe;
 import com.nbvarnado.bakingapp.ui.main.MainActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         Intent serviceIntent = new Intent(context, WidgetService.class);
         serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         ArrayList<Ingredient> ingredients = (recipe != null) ? (ArrayList) recipe.getIngredients() : new ArrayList<>();
-        serviceIntent.putParcelableArrayListExtra(EXTRA_INGREDIENTS, ingredients);
+        serviceIntent.putExtra(EXTRA_INGREDIENTS, (Serializable) ingredients);
         serviceIntent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
         views.setRemoteAdapter(R.id.widget_ingredients, serviceIntent);
         appWidgetManager.updateAppWidget(appWidgetId, views);

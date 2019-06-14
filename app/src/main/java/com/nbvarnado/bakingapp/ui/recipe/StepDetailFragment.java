@@ -1,6 +1,7 @@
 package com.nbvarnado.bakingapp.ui.recipe;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,8 +22,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.support.v4.media.session.MediaSessionCompat;
@@ -31,12 +32,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.nbvarnado.bakingapp.R;
-import com.nbvarnado.bakingapp.data.database.recipe.Recipe;
 import com.nbvarnado.bakingapp.data.database.recipe.Step;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -54,6 +54,8 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
      * represents.
      */
     public static final String ARG_STEP = "step";
+    private static final String PLAYER_POSITION_KEY = "player_position";
+    private static final String PLAYER_STATE_KEY = "player_state";
 
     private Step mStep;
     private SimpleExoPlayer mExoPlayer;
@@ -75,10 +77,14 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         if (getArguments().containsKey(ARG_STEP)) {
             mStep = getArguments().getParcelable(ARG_STEP);
         }
+
         Activity activity = this.getActivity();
-        CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
-        if (appBarLayout != null && mStep != null) {
-            appBarLayout.setTitle(mStep.getShortDescription());
+        Toolbar toolbar = null;
+        if (activity != null) {
+            toolbar = activity.findViewById(R.id.detail_toolbar);
+        }
+        if (toolbar != null && mStep != null) {
+            toolbar.setTitle(mStep.getShortDescription());
         }
     }
 
@@ -98,7 +104,33 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             }
         }
 
+        if (savedInstanceState != null && mExoPlayer != null) {
+            long playerPosition = savedInstanceState.getLong(PLAYER_POSITION_KEY);
+            int playerState = savedInstanceState.getInt(PLAYER_STATE_KEY);
+            mExoPlayer.seekTo(playerPosition);
+        }
+
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mExoPlayer != null) {
+            long playerPosition = mExoPlayer.getCurrentPosition();
+            int playerState = mExoPlayer.getPlaybackState();
+            outState.putLong(PLAYER_POSITION_KEY, playerPosition);
+            outState.putInt(PLAYER_STATE_KEY, playerState);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+        if (mMediaSession != null) {
+            mMediaSession.setActive(false);
+        }
     }
 
     @Override
